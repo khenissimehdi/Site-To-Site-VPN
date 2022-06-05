@@ -102,6 +102,9 @@ ip route 0.0.0.0 0.0.0.0 <the-interface-addres> (ex: 200.1.1.2)
 #### Note set the inside and outside interfacess 
 go to the interface and add ether ``ip nat outside`` or ``ip nat inside``
 
+#### Setting the Crypto Map for isakmp 
+Crypto maps server to two goals the first one is to specify the policy that will be applied to the trafic and second filtiring and classifying the trafic
+
 
 
 
