@@ -43,13 +43,14 @@ you will just set the gateaway information for every interface it's statique rou
 
 In this two blue network we are going to set the basis for the VPN connecion 
 
-## for 192.168.1.0/24
-In this network we have one router and this router will be the one managing the vpn to go from his side to ther other side [192.168.2.0/24]
+## For every network do 
+In this network we have one router and this router will be the one managing the vpn to go from his side to ther other side</br>
+for exampl from [192.168.1.0/24] to [192.168.2.0/24]
 
 ### The cyrpto command 
 It's tool provided by Cisco to configure IpSec(Ip Security) on a network, IPSec provides security for transmission of sensitive information over unprotected networks such as the Internet. IPSec provides a robust security solution and is standards-based. IPSec provides data authentication and anti-replay services in addition to data confidentiality services.
 
-## Setting the policy 
+#### Setting the policy 
 You can see the policy as a set of rules that will determinse how two diffrent entitier in two diffrent network will comunicate.
 ```
 crypto isakmp policy 1
@@ -67,5 +68,27 @@ there is only 3 options:
  3. Group 14 (2048-bit)
 
 and the last weird paramter is authentication this means what authentication method we are going to use, here we pick pre-share means we are going to use a simple, password-based key to authenticate.
+#### Setting the Authentication key
+To set the authentication key use the crypto command chained by isakmp key here is an exmaple 
+```
+crypto isakmp key <keyString> (ex: badhak) address <remote-host> (ex: 200.1.2.1)
+```
+#### Setting the  transform set
+A transform set is an acceptable combination of security protocols, algorithms and other settings 
+```
+crypto ipsec transform-set <name-of-the-set> (ex: TR-R2-TO-R1) transforms (ex :esp-aes 256 esp-sha-hmac)  
+```
+#### Setting the ACL that will allow the connection
+```
+ip access-list extended VPN-ACL <- just the name
+permit ip <current-network-ip> <current-network-inverse-mask> (ex: 192.168.1.0 0.0.0.255)  <remote-network-ip> <remote-network-inverse-mask> (ex: 192.168.2.0 0.0.0.255)
+```
+#### Setting the ACL that will make sure machines can connect to the internet and that any connection from the current to the remote doens't go throught the internet
+```
+ip access-list extended NAT-ACL <- just the name
+deny ip <current-network-ip> <current-network-inverse-massk> <remote-network-ip> <remote-network-inverse-massk> (ex: 192.168.1.0 0.0.0.255 192.168.2.0 0.0.0.255)  <- connection from the current to the remote doens't go throught the internet
+permit ip <current-network-ip> (ex: 192.168.1.0 0.0.0.255)  any <- make sure machines can connect to the internet (any to say any address)
+```
+
 
 
