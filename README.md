@@ -105,6 +105,15 @@ go to the interface and add ether ``ip nat outside`` or ``ip nat inside``
 #### Setting the Crypto Map for isakmp 
 Crypto maps server to two goals the first one is to specify the policy that will be applied to the trafic and second filtiring and classifying the trafic
 
+```
+crypto map <name> 1 ipsec-isakmp 
+ set peer <remote-address> <- Specifies an IPSec peer in a crypto map entry.
+ set pfs group5 <- Specifies that IPSec should ask for perfect forward secrecy (PFS) when requesting new security associations (The PFS ensures that the same key will not be generated and used again.) and here we tell him to use diffiel hellman 1536-bit
+ set transform-set <transfom-name> <- the transform name of the transform we created before
+ match address <acl-rule-name> <- Specifies an extended access list for a crypto map entry. (the one we created before) 
+```
+Note : add the crypto map on the gateaway interface ``crypto map <name-of-the-cryptoMap>``
 
+After doing all this in both sides you should be up and running.
 
 
