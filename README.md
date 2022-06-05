@@ -51,13 +51,13 @@ It's tool provided by Cisco to configure IpSec(Ip Security) on a network, IPSec 
 
 ## Setting the policy 
 You can see the policy as a set of rules that will determinse how two diffrent entitier in two diffrent network will comunicate.
-``
+```
 crypto isakmp policy 1
  encr aes 256
  authentication pre-share
  group 5
  lifetime 3600
-``
+```
 in this set of rules the most two obscure one are the **policy 1** and  **group 5**, policy 1 means that  priority of the policy the lowest the number 
 the hightiest the priorit, for group it's about diffie-hellman strength, The identifier is used by two IPsec peers to derive a shared secret without transmitting it to each other. The Group sets the strength of the algorithm in bits. The default is Group 5. The lower the Diffie-Hellman group number, the less CPU time it requires to be executed. The higher the D-H group number, the greater the security level.
 there is only 3 options:
@@ -65,5 +65,7 @@ there is only 3 options:
  1. Group 2 (1024-bit)</br>
  2. Group 5 (1536-bit)</br>
  3. Group 14 (2048-bit)
+
+and the last weird paramter is authentication this means what authentication method we are going to use, here we pick pre-share means we are going to use a simple, password-based key to authenticate.
 
 
