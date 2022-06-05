@@ -95,5 +95,13 @@ permit ip <current-network-ip> (ex: 192.168.1.0 0.0.0.255)  any <- make sure mac
 ip nat inside source list NAT-ACL interface GigabitEthernet0/0/1 overload
 ```
 Here we tell the router to translate the packets from the addresses described in ACL NAT-ACL and replace the source IP address with the one configured on the GigabitEthernet0/0/1 interface, overriding it to allow more than one machine to communicate with the outside
+#### Configurating the default route to send packet to a given interface address
+```
+ip route 0.0.0.0 0.0.0.0 <the-interface-addres> (ex: 200.1.1.2)
+```
+#### Note set the inside and outside interfacess 
+go to the interface and add ether ``ip nat outside`` or ``ip nat inside``
+
+
 
 
