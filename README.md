@@ -90,5 +90,10 @@ deny ip <current-network-ip> <current-network-inverse-massk> <remote-network-ip>
 permit ip <current-network-ip> (ex: 192.168.1.0 0.0.0.255)  any <- make sure machines can connect to the internet (any to say any address)
 ```
 
+#### Making sure multiple machines can communicate with the outside
+```
+ip nat inside source list NAT-ACL interface GigabitEthernet0/0/1 overload
+```
+Here we tell the router to translate the packets from the addresses described in ACL NAT-ACL and replace the source IP address with the one configured on the GigabitEthernet0/0/1 interface, overriding it to allow more than one machine to communicate with the outside
 
 
